@@ -1,0 +1,28 @@
+목적
+ - REST API 사용하여 앱과 서버의 통신
+ - REST-ful한 코드 작성을 위한 환경 구축
+
+사용 언어/툴
+ - Nest.js - REST API 사용 언어
+   - Node.js - Nest.js 기반 언어
+ - IntelliJ, VisualStudioCode - 기본 코딩 프로그램
+ - 형식 : JSON, XML 중에서 JSON으로 통일
+
+코딩 툴
+ - 유니티 + Python
+
+구성 요소 정리
+ - 클라이언트, 서버, 자원(리소스)
+   - 클라이언트 : 사용자
+   - 서버 : API 액세스 서버
+   - 자원 : 모든 컨텐츠
+     - Collections : http://example.com/topics/1에서 topics값. '복수'
+     - Element : http://example.com/topics/1에서 1, 보통 ID값. rest 등으로 사용도 가능. '단수'
+ - 기능(메소드) 정리 : 생성, 읽기, 수정, 삭제 (끝)
+   - 생성 : Create / post (REST 기준 / HTTP or Git 기준)
+   - 읽기 : Read / get
+   - 수정 : Update / put | patch
+   - 삭제 : Delect / delete
+
+사용 API 및 메서드
+ - ??? 연구 필요.

@@ -1,0 +1,63 @@
+생성, 요청, 수정, 삭제
+
+GET, DELETE : body 없음.
+POST, PUT, PATCH : body 가능, 추가 정보 및 안전하게 가능.
+
+생성
+ HTTP : POST /topics HTTP/1.1
+ REST : fetch('topics', { method:'POST', headers:{'content-type':'application/json'}, body:JSON.stringify({title:'fetch', body:'fetch is ...'}) })
+	.then( function(response){ consol.log('status', response.status); return response.json() })
+	.then( function(result){ console.log(result); })
+ JSON 형식으로 전송해야 함. like : {"title":"fetch","body":"fetch is ...","id",2}
+ 201 응답 코드 : 생성 성공했다는 의미
+
+읽기(요청)
+ - Collection(복수) 읽기, Element(단일) 읽기
+ - 콜렉션 읽기
+ HTTP : GET /topics HTTP/1.1
+ REST : fetch('topics', {method:'GET'})
+	.then(function(response) { return response.json() })
+	.then(function(reslut){console.log(result);})
+ - 부분 읽기
+ HTTP : GET /topics/2 HTTP/1.1
+ REST : fetch('topics/2')
+	.then(function(response) { return response.json() })
+	.then(function(reslut){console.log(result);})
+ 200 응답코드 : 읽기 성공.
+
+수정
+ - 부분 수정(PATCH), 전체 수정(PUT)
+ - 부분 수정
+ HTTP : PATCH /topics/2 HTTP/1.1
+ REST : fetch('topics/2', {method:'PATCH', {headers:{'content-type':'application/json'},body:JSON.stringify({title:'fetch - patch'}) }) // 타이틀만 수정함.
+	.then(function(response) { return response.json() })
+	.then(function(reslut){console.log(result);})
+ - 전체 수정
+ HTTP : PUT /topics/2 HTTP/1.1
+ REST : fetch('topics/2', {method:'PUT', {headers:{'content-type':'application/json'},body:JSON.stringify({title:'fetch - put'}) }) // 바디가 날라감. 전체수정.
+	.then(function(response) { return response.json() })
+	.then(function(reslut){console.log(result);})
+   - vs POST : 멱등성 차이. 여러번 요청해도 변하지 않음(안정적). POST는 매번 new() 생성. 객체 이름 명시하면 PUT, 서버가 결정하면 POST.
+   - vs PATCH : 새로운 자원 생성(PUT), 기존 자원 활용(PATCH)
+
+삭제
+ HTTP : PUT /topics/2 HTTP/1.1
+ REST : fetch('topics/2', {method:'DELETE'})
+	.then(function(response) { return response.json() })
+	.then(function(reslut){console.log(result);})
+ - 컬렉션 삭제의 경우, 위험한 명령이라 막혀있는 경우가 많음. 보통 개별 삭제만.
+
+관계 (리소스와 리소스의)
+ - 타이틀이 몇개의 코멘트를 가지고 있는지 확인하는 방법 : '타이틀/타이틀번호/코멘트'로 표현:
+ HTTP : 
+ REST : fetch('topics/1/comments', {method:'GET'})
+	.then(function(response) { return response.json() })
+	.then(function(reslut){console.log(result);})
+
+
+예시 코드
+ (도메인)/classes/2/students/15 : 학생들 중 해당 idx(15)에 해당하는 정보를 가져옴
+ (도메인)/classes/2/students?sex=male : 학생들 중 해당 조건(sex=male)에 해당하는 정보를 가져옴
+ (도메인)/classes/2/students?page=2&count=10: 한 페이지에 10명씩 받아옴.
+
+ URL은 동사가 아닌 명사(들)로 이루어져야 한다.
